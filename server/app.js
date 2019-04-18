@@ -9,15 +9,35 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb+srv://admin:admin@cluster0-higgl.mongodb.net/mongoTest?retryWrites=true';
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+var expressSession = require('express-session');
+app.use(cookieParser());
+// router.use(expressSession({secret: 'mySecretKey'}));
+app.use(expressSession({
+  secret: "codecrew",
+  name: "cookie_name",
+  // store: "sessionStore", // connect-mongo session store
+  proxy: true,
+  resave: true,
+  saveUninitialized: true
+}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
