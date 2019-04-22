@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import TweetList from "./TweetList";
+import TwitterSignIn from "./TwitterSignIn";
 import AddUser from "./AddUser";
 import LogOut from "./LogOut";
-import TwitterSignIn from "./TwitterSignIn";
+import LoggedInData from "./LoggedInData";
 
-
-class TwitterHome extends Component{
+class TwitterUserHome extends Component{
     // constructor to save state (component variables) like isLoggedIn, username, and bookname
     constructor(props) {
         super(props);
@@ -65,4 +66,4 @@ class TwitterHome extends Component{
     }
 }
 
-export default TwitterHome;
+export default TwitterUserHome;

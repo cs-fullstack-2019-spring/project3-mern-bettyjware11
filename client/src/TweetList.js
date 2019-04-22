@@ -64,12 +64,12 @@ class TweetList extends Component{
             // response on the left side is the readable JSON collection.
             // on the right side we're setting the tweets state as the server's response. Afterwards, we're running a the mappedTweetsFunction to map out each favoriteTweetsArray entry styling.
             .then(response=> {
-                return this.setState({tweets: response.tweets}, () => this.mappedTweetsFunction())
+                return this.setState({tweets: response.tweet}, () => this.mappedTweetFunction())
             });
     }
 
     // Map the user's tweets into a the mappedTweets state
-    mappedTweetsFunction(){
+    mappedTweetFunction(){
         // This variable will be the mapped Array saved in the state
         let mapArray = [];
 

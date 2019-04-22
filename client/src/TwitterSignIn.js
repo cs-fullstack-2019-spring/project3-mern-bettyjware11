@@ -33,7 +33,7 @@ class TwitterSignIn extends Component{
                 // If the server (res.send) has a collection with a username in it, run the function below
                 if(userAndTweet.username)
                 // This is changing the parent component state to the returned username, returned tweet and isLoggedIn to true
-                    return this.props.loggedInUserInfo(userAndTweet.username, userAndTweet.tweet, true);
+                return this.props.loggedInUserInfo(userAndTweet.username, userAndTweet.tweet, true);
                 // If the server (res.send) DOES NOT have username in it, run the function below
                 else
                 // This is changing the parent component state to have the username and password to be null (empty) and isLoggedIn to false
