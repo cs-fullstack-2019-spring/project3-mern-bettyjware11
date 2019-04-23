@@ -1,14 +1,19 @@
 var mongoose = require('mongoose');
+var ObjectID = require('mongodb').ObjectID;
+
 
 var Schema = mongoose.Schema;
 
-var TwitterUserSchema = new Schema(
+var UserTwitterSchema = new Schema(
     {
         username: {type: String, required: true, max: 100},
         password: {type: String, required: true, max: 100},
+        image: String,
+        backgroundImage: String,
         // You need brackets around a type to make it an array
-        tweet: [{
-            title : String,
+        tweet:
+         [{
+            title: String,
             author : String,
             message: String,
             optionalImageURL: String,
@@ -18,4 +23,4 @@ var TwitterUserSchema = new Schema(
 );
 
 //Export model
-module.exports = mongoose.model('userTwitter', TwitterUserSchema);
+module.exports = mongoose.model('tweet', UserTwitterSchema);

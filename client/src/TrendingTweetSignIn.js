@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TwitterSignIn extends Component{
+class TrendingTweetSignIn extends Component{
 
     // Submission event handler for Signing in an existing user
     submitSignIn=(e)=>{
@@ -29,11 +29,11 @@ class TwitterSignIn extends Component{
             .then(rawData=>rawData.json())
             // response on the left side is the readable JSON collection.
             // on the right side we're running a function. The first line is console logging
-            .then(userAndTweet=>{console.log(userAndTweet);
+            .then(userAndTweetTitle=>{console.log(userAndTweetTitle);
                 // If the server (res.send) has a collection with a username in it, run the function below
-                if(userAndTweet.username)
+                if(userAndTweetTitle.username)
                 // This is changing the parent component state to the returned username, returned tweet and isLoggedIn to true
-                return this.props.loggedInUserInfo(userAndTweet.username, userAndTweet.tweet, true);
+                return this.props.loggedInUserInfo(userAndTweetTitle.username, userAndTweetTitle.tweetTitle, true);
                 // If the server (res.send) DOES NOT have username in it, run the function below
                 else
                 // This is changing the parent component state to have the username and password to be null (empty) and isLoggedIn to false
@@ -47,7 +47,7 @@ class TwitterSignIn extends Component{
             return (
                 <div>
                     {/*It's getting props.email from the parent component. It was populated by the loggedInUserInfo function.*/}
-                    <h1>Your tweets are: {this.props.tweet}</h1>
+                    <h1>Your tweets are: {this.props.tweetTitle}</h1>
                 </div>
             );
         }
@@ -73,4 +73,4 @@ class TwitterSignIn extends Component{
     }
 }
 
-export default TwitterSignIn;
+export default TrendingTweetSignIn;

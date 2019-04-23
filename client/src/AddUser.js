@@ -29,7 +29,9 @@ class AddUser extends Component {
             body: JSON.stringify({
                 username: e.target.username.value,
                 password: e.target.password.value,
-                tweet: e.target.tweet.value,
+                image: e.target.image.value,
+                backgroundImage: e.target.backgroundImage.value
+
 
 
             }),
@@ -59,9 +61,15 @@ class AddUser extends Component {
                         <input id={"password"} type="password" name='password' placeholder="Enter password"/>
                     </p>
                     <p>
-                        <label htmlFor={"tweet"}>Enter tweet:</label>
-                        <input id={"tweet"} type="text" name='tweet' placeholder="Enter tweet"/>
+                        <label htmlFor={"image"}>Upload image:</label>
+                        <input id={"image"} type="text" name='image' placeholder="Upload Image"/>
                     </p>
+                    <p>
+                        <label htmlFor={"backgroundImage"}>Upload background image:</label>
+                        <input id={"backgroundImage"} type="text" name='backgroundimage' placeholder="Upload Background Image"/>
+                    </p>
+
+
 
 
                     <button>Sign In</button>

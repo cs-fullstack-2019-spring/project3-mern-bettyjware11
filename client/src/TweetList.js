@@ -1,138 +1,61 @@
 import React, { Component } from 'react';
+import DetailedTweet from "./DetailedTweet";
 
 class TweetList extends Component{
     // constructor to save states (component variables) to be used through this
     constructor(props) {
         super(props);
-        this.state={
-            tweets:[],
-            mappedTweets:[],
+        this.state = {
+            // this state (variable) will grab the array of collections straigt from the database
+            tweetCollectionArray: [],
+            // this state (variable) will hold an array of styled HTML for each entry in the database
+            mappedTweet:[],
         };
     }
 
-    // This runs when the component is first loaded
+    // This is run when the component is loaded
     componentDidMount() {
-        // Fetch the tweetData whether they are logged in or not
-        this.fetchUserTweetData();
+        // This called the fetchDatabaseEntries function
+        this.fetchDatabaseEntries();
     }
 
-    // Run this function to log in a user and create a cookie
-    signInUser=(e)=>{
-        // Prevents default behavior like reloading the page before the function is run
-        e.preventDefault();
-        console.log("Submitting Log in");
-        // Fetches the '/login' route in the users.js group as a POST method
-        fetch('/users/login',
-            {
-                method: 'POST',
-                // Accept tells the server what kind of data the client is expecting.
-                // Content-Type tells the server which kind of data the client is sending in the body
-                headers:{
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                },
-                // Creates a collection for username and password. Because a request can't send a collection, you have to make it a JSON string first
-                // e.target is the information being sent from the form input fields by their names give in the input attributes. The value is what was typed.
-                body: JSON.stringify({
-                    username: e.target.username.value,
-                    password: e.target.password.value,
-                }),
-            })
-        // data on the left side is the raw response data the server sent (res.send)
-        // On the right side, use that data parameter with the .text function to change data to normal text.
-            .then(data=>{ return data.text()})
-            // response on the left side is the readable text data.
-            // on the right side we're saving the readable text data that's saved in response into the loggedInUserInfo function. That is updating the state in the parent function BlogHome.
-            .then(response=>{if(response) {
-                // loggedInUserInfo first parameter is username, the second is loggedIn. If there is a response (username is sent), then make loggedIn true
-                this.props.loggedInUserInfo(response, true);
-                // Now that I have the user's username, I want to fetch the tweetArray and save it as a state
-                return this.fetchUserTweetData();
-            }
-            // If there is no response, it sends an undefined username and false as loggedIn
-            else
-                return this.props.loggedInUserInfo(response, false)});
+    // Going to GET the URL '/movie'. The results should be put into JSON, then sent to the movieCollectionArray
+    fetchDatabaseEntries = (e) =>{
+        //Call localhost[PORT]/movie like you would in POSTMAN. It's GET by default.
+        fetch('/tweet')
+        // The response or res from your server is pushed into the variable here. It doesn't have to be named data. It can be anything. If it's a collection put data.json(). If it's a string put data.text()
+            .then(data=>data.json())
+            // Now that the data is a collection again we want to save it in the movieCollectionArray state so we can call it in a different function.
+            .then(data=>this.setState(
+                // Once the movieCollectionArray state is saved I want to run the mappedMovieFunction. I have to call it this way so it doesn't run the function before the data is finished being fetched and saved.
+                {tweetCollectionArray:data}, ()=>this.mappedTweetFunction()));
     };
 
-    // Fetch the signed in user's collection and save it in Tweets
-    fetchUserTweetData(){
-        // Fetches the '/grabTweets' route in the users.js group as a GET method
-        fetch('/users/grabTweets')
-        // data on the left side is the raw response data the server sent (res.send)
-        // On the right side, use that data parameter with the .json function to change data to a readable JSON collection.
-            .then(data=>data.json())
-            // response on the left side is the readable JSON collection.
-            // on the right side we're setting the tweets state as the server's response. Afterwards, we're running a the mappedTweetsFunction to map out each favoriteTweetsArray entry styling.
-            .then(response=> {
-                return this.setState({tweets: response.tweet}, () => this.mappedTweetFunction())
-            });
-    }
-
-    // Map the user's tweets into a the mappedTweets state
-    mappedTweetFunction(){
-        // This variable will be the mapped Array saved in the state
-        let mapArray = [];
-
-        console.log(this.state.tweets);
-        // Create a temporary array until you know if the tweetsArray is empty. If the tweetsArray has data, it will be saved in here. Otherwise, it would be undefined and break everything if we didn't save it as an empty array.
-        let tempArray = [];
-        // If there are items in the tweetsArray
-        if(this.state.tweets)
-        // Save the array in the tempArray
-            tempArray = this.state.tweets;
-
-        // if the tempArray has something in it (being entries)
-        if(tempArray.length>0) {
-            // Map each item in the array to the return JSX below
-            mapArray = this.state.tweets.map(
-                (eachElement, index) => {
-                    // We REALLY should be creating a new key for each item, but we're being lazy and using index instead right now. The console.log will probably yell at us.
-                    return (<div key={index}>
-                        <p>{eachElement}</p>
-                    </div>)
-                }
-            );
-            console.log(mapArray);
-        }
-        // If the todoArray doesn't have anything in it
-        else {
-            console.log("no tweets for " + this.props.logInfo.username);
-            // Make mapArray empty
-            mapArray = [];
-        }
-        // Save the state of the mapArray so you can display all of it's entries
-        this.setState({mappedTweets:mapArray});
+    // This function will map out our movieCollectionArray and save the style HTML array in the mappedMovie state.
+    mappedMovieFunction(){
+        // This is saving the movieCollectionArray map to the mappedArray variable
+        const mappedArray= this.state.tweetCollectionArray.map(
+            // For each element in the movieCollection Array to the following function
+            (eachElement)=>{
+                // You want to style each Element using JSX and give it a key
+                return( <div key={eachElement._id}>
+                    {/*We want to do all the styling in a different component so we have to send the element as a prop to the component.*/}
+                    <DetailedTweet eachElement={eachElement}/>
+                </div>)
+            }
+        );
+        // Once we're all done the stylized HTML array will be saved in the mappedMovie state
+        this.setState({mappedTweet: mappedArray});
     }
 
     render(){
-        return(
-            <div>
-                {/*If a user is logged in*/}
-                {this.props.logInfo.loggedIn?
-                    // Render the username and the mapped Tweets
-                    (<div>
-                        <h1>{this.props.logInfo.username}'s data</h1>
-                        {this.state.mappedTweets}
-                    </div>):
-                    // If the user is not logged in. Render the log in form.
-                    (<div>
-                            <p>Please log in</p>
-                            {/*Form for entering an existing user information. Once you submit the form it runs signInUser*/}
-                            <form onSubmit={this.signInUser}>
-                                <p>
-                                    <label htmlFor={"username"}>Enter username:</label>
-                                    <input type="text" name={"username"} id={"username"}/>
-                                </p>
-                                <p>
-                                    <label htmlFor={"password"}>Enter password:</label>
-                                    <input type="text" name={"password"} id={"password"}/>
-                                </p>
-                                <button>Sign In</button>
-                            </form>
-                        </div>
-                    )}
-            </div>
-        );
+        return( <div>
+            <h1>Trending tweets</h1>
+            {/*Print out MappedMovie state with the stylized element array*/}
+            <h4>{this.state.mappedTweet}</h4>
+        </div>);
     }
 }
+
+
 export default TweetList;
