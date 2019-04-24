@@ -14,7 +14,7 @@ var UserTwitterSchema = new Schema(
         tweet:
          [{
             title: String,
-            author : String,
+            // author : String,
             message: String,
             optionalImageURL: String,
             privateTweetCheckbox: Boolean

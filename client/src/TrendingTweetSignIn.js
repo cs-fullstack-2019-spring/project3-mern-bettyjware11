@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-class TrendingTweetSignIn extends Component{
+class TrendingTweetSignIn extends Component {
 
     // Submission event handler for Signing in an existing user
-    submitSignIn=(e)=>{
+    submitSignIn = (e) => {
         // Prevents default behavior like reloading the page before the function is run
         e.preventDefault();
         // Fetches the '/login' route in the users.js group as a POST method
@@ -12,7 +12,7 @@ class TrendingTweetSignIn extends Component{
                 method: 'POST',
                 // Accept tells the server what kind of data the client is expecting.
                 // Content-Type tells the server which kind of data the client is sending in the body
-                headers:{
+                headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                 },
@@ -26,34 +26,36 @@ class TrendingTweetSignIn extends Component{
             })
         // data on the left side is the raw response data the server sent (res.send)
         // On the right side, use that data parameter with the .json function to change data to a readable JSON collection.
-            .then(rawData=>rawData.json())
+            .then(rawData => rawData.json())
             // response on the left side is the readable JSON collection.
             // on the right side we're running a function. The first line is console logging
-            .then(userAndTweetTitle=>{console.log(userAndTweetTitle);
+            .then(userAndTweet => {
+                console.log(userAndTweet);
                 // If the server (res.send) has a collection with a username in it, run the function below
-                if(userAndTweetTitle.username)
+                if (userAndTweet.username)
                 // This is changing the parent component state to the returned username, returned tweet and isLoggedIn to true
-                return this.props.loggedInUserInfo(userAndTweetTitle.username, userAndTweetTitle.tweetTitle, true);
+                    return this.props.loggedInUserInfo(userAndTweet.username, userAndTweet.tweet, true);
                 // If the server (res.send) DOES NOT have username in it, run the function below
                 else
                 // This is changing the parent component state to have the username and password to be null (empty) and isLoggedIn to false
-                    return this.props.loggedInUserInfo(null, null, false)});
+                    return this.props.loggedInUserInfo(null, null, false)
+            });
 
     };
 
-    render(){
+    render() {
         // If the parent component variable (isLoggedIn) is true, render the return below
-        if(this.props.isLoggedIn) {
+        if (this.props.isLoggedIn) {
             return (
                 <div>
                     {/*It's getting props.email from the parent component. It was populated by the loggedInUserInfo function.*/}
-                    <h1>Your tweets are: {this.props.tweetTitle}</h1>
+                    <h1>Your tweets are: {this.props.tweet}</h1>
                 </div>
             );
         }
         // If the parent component variable (isLoggedIn) is false, show a sign in form
-        else{
-            return(
+        else {
+            return (
                 <div>
                     {/*Form for entering an existing user information. Once you submit the form it runs submitSignin*/}
                     <form onSubmit={this.submitSignIn}>
@@ -63,7 +65,7 @@ class TrendingTweetSignIn extends Component{
                         </p>
                         <p>
                             <label htmlFor={"password"}>Enter password:</label>
-                            <input id={"password"} type="password" name='password' placeholder="Enter password" />
+                            <input id={"password"} type="password" name='password' placeholder="Enter password"/>
                         </p>
                         <button>Sign In</button>
                     </form>

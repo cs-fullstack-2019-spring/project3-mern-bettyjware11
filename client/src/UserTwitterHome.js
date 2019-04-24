@@ -9,16 +9,20 @@ import LoggedInData from "./LoggedInData";
 import AddTweet from "./AddTweet";
 
 class UserTwitterHome extends Component{
-    // constructor to save state (component variables) like isLoggedIn, username, and bookname
+    // constructor to save state (component variables) like isLoggedIn, username, and tweet
     constructor(props) {
         super(props);
         this.state={
-            // isLoggedIn is false because a user is not logged in and there is no username or email so they're null
+            // isLoggedIn is false because a user is not logged in and so they're null
             isLoggedIn: false,
             username: null,
             tweet: null,
         };
     }
+    changeEdit=(editBoolean, editID)=>{
+        this.setState({isEditing: editBoolean,
+            entryCollection: editID});
+    };
 
 
 
@@ -28,7 +32,7 @@ class UserTwitterHome extends Component{
         console.log("Clear");
         this.setState({
             username: username,
-            tweetTitle: tweet,
+            tweet: tweet,
             isLoggedIn: loggedIn,
         });
     };
@@ -73,7 +77,13 @@ class UserTwitterHome extends Component{
                     <Route path={"/addTweet"} component={()=><AddTweet/>} />
                     {/*<Route path={"/edit"} component={()=><EditTweet/>} />*/}
                 </Router>
+                <div>
+
+                    <TweetList/>
+                </div>
             </div>
+
+
 
         );
     }

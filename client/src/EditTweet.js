@@ -10,17 +10,17 @@ class EditTweet extends Component{
         console.log("In edit");
         console.log(this.props.entryCollection);
     }
-    changeEdit=(editBoolean, editID)=>{
-        this.setState({isEditing: editBoolean,
-            entryCollection: editID});
-    };
+    // changeEdit=(editBoolean, editID)=>{
+    //     this.setState({isEditing: editBoolean,
+    //         entryCollection: editID});
+    // };
 
     // This function is run when you submit the form and add a new tweet
     submitAdditionalTweet = (e) =>{
         // You need preventDefault to stop the page from reloading. If it reloaded the rest of the function wouldn't run.
         e.preventDefault();
         //Call localhost[PORT]/movie like you would in POSTMAN. It's a POST method as seen below.
-        fetch('/tweets', {
+        fetch('/tweet', {
             method: "PUT",
             // You need HTML headers so the server knows the data in the HTML body is json.
             headers: {
@@ -34,7 +34,6 @@ class EditTweet extends Component{
                 password: e.target.password.value,
                 tweet:{
                     title:e.target.title.value,
-                    author:e.target.author.value,
                     message: e.target.message.value,
                     optionalImageURL: e.target.optionalImageURL.value,
                     privateTweetCheckbox: e.target.privateTweetCheckbox.value
@@ -62,10 +61,6 @@ class EditTweet extends Component{
                     <p>
                         <label htmlFor="title">Enter tweet title here:</label>
                         <input type="text" id={"title"} name={"title"} defaultValue={this.props.entryCollection.tweet.title}/>
-                    </p>
-                    <p>
-                        <label htmlFor="author">Author of Tweet:</label>
-                        <input type="text" id={"author"} name={"author"} defaultValue={this.props.entryCollection.tweet.author}/>
                     </p>
 
                     <p>
