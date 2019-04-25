@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TweetList from "./TweetList";
 
 class DetailedTweet extends Component{
     // The render function will run when you need to update something on the page
@@ -14,6 +15,7 @@ class DetailedTweet extends Component{
                      {this.props.eachElement.tweet.message}
                     {this.props.eachElement.tweet.optionalImageURL}  {this.props.eachElement.tweet.privateTweetCheckbox}
                 </p>
+
 
             </div>
         );

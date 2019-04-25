@@ -6,7 +6,7 @@ class TweetList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // this state (variable) will grab the array of collections straigt from the database
+            // this state (variable) will grab the array of collections straight from the database
             tweetCollectionArray: [],
             // this state (variable) will hold an array of styled HTML for each entry in the database
             mappedTweet: [],
@@ -29,23 +29,23 @@ class TweetList extends Component {
 
 
 
-    // Going to GET the URL '/movie'. The results should be put into JSON, then sent to the movieCollectionArray
+    // Going to GET the URL '/tweet'. The results should be put into JSON, then sent to the movieCollectionArray
     fetchDatabaseEntries = (e) => {
-        //Call localhost[PORT]/movie like you would in POSTMAN. It's GET by default.
-        fetch('/tweet')
+        //Call localhost[PORT]/tweet like you would in POSTMAN. It's GET by default.
+        fetch('/tweet/')
         // The response or res from your server is pushed into the variable here. It doesn't have to be named data. It can be anything. If it's a collection put data.json(). If it's a string put data.text()
             .then(data => data.json())
-            // Now that the data is a collection again we want to save it in the movieCollectionArray state so we can call it in a different function.
+            // Now that the data is a collection again we want to save it in the tweetCollectionArray state so we can call it in a different function.
             .then(data => this.setState(
-                // Once the movieCollectionArray state is saved I want to run the mappedMovieFunction. I have to call it this way so it doesn't run the function before the data is finished being fetched and saved.
+                // Once the tweetCollectionArray state is saved I want to run the mappedTweetFunction. I have to call it this way so it doesn't run the function before the data is finished being fetched and saved.
                 {tweetCollectionArray: data}, () => this.mappedTweetFunction()));
     };
 
     // This function will map out our tweetCollectionArray and save the style HTML array in the mappedTweet state.
     mappedTweetFunction() {
-        // This is saving the movieCollectionArray map to the mappedArray variable
+        // This is saving the tweetCollectionArray map to the mappedArray variable
         const mappedArray = this.state.tweetCollectionArray.map(
-            // For each element in the movieCollection Array to the following function
+            // For each element in the tweetCollection Array to the following function
             (eachElement) => {
                 // You want to style each Element using JSX and give it a key
                         return (<div key={eachElement._id}>
@@ -54,7 +54,7 @@ class TweetList extends Component {
                 </div>)
             }
         );
-        // Once we're all done the stylized HTML array will be saved in the mappedMovie state
+        // Once we're all done the stylized HTML array will be saved in the mappedTweet state
         this.setState({mappedTweet: mappedArray});
     }
 

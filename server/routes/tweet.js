@@ -4,15 +4,6 @@ var router = express.Router();
 // You can name this anything. It's grabbing your model to allow you to use Mongoose database functions like find and create
 var UserTwitterCollection = require('../models/UserTwitterSchema');
 
-//this route displays trending tweets in the database
-router.get('/listTrendingTweets', (req, res) => {
-    //empty curly braces used to grab all info in model
-    UserTwitterCollection.find({}, (errors, results) => {
-        if (errors) res.send(errors);
-        else res.send(results);
-    });
-});
-
 /* Go to the root ('/') of this router group (tweets) and using GET. In the client you'll have to fetch '/tweets' with the default GET request */
 router.get('/', function(req, res, next) {
 
@@ -50,6 +41,21 @@ router.put('/', (req, res)=>{
             else res.send("Updated!!!");
         });
 });
+
+//this route displays trending tweets in the database
+router.get('/listTrendingTweets', (req, res, next) => {
+    //empty curly braces used to grab all info in model
+    UserTwitterCollection.find((errors, results)=>{
+        if (errors) res.send(errors);
+        else res.send(results);
+    });
+});
+
+
+
+
+
+
 
 // Allow you to call this movie group route in your app.js file.
 module.exports = router;
