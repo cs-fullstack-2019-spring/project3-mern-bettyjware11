@@ -59,6 +59,8 @@ class TweetList extends Component {
     }
 
     render() {
+
+
         return (<div>
             <h1>Trending tweets</h1>
             {/*Print out MappedTweet state with the stylized element array*/}

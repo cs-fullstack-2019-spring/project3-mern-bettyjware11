@@ -16,7 +16,7 @@ class AddUser extends Component {
         // Prevents default behavior like reloading the page before the function is run
         e.preventDefault();
         // Fetches the '/' route in the users.js group as a POST method
-        fetch('/users/', {
+        fetch('/users/newuser', {
             method: 'POST',
             // Accept tells the server what kind of data the client is expecting.
             // Content-Type tells the server which kind of data the client is sending in the body

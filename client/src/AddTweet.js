@@ -22,8 +22,9 @@ class AddTweet extends Component{
                 },
                 body: JSON.stringify({
                     username: e.target.username.value,
+                    password: e.target.password.value,
 
-                    title: e.target.tweet.title.value,
+                    // title: e.target.tweet.title.value,
 
                     // message: e.target.tweet.message.value,
                     // optionalImageURL: e.target.tweet.optionalImageURL.value,
