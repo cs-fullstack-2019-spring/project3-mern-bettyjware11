@@ -4,7 +4,7 @@ var ObjectID = require('mongodb').ObjectID;
 
 var Schema = mongoose.Schema;
 
-var UserTwitterSchema = new Schema(
+var TwitterUserSchema = new Schema(
     {
         username: {type: String, required: true, max: 100},
         password: {type: String, required: true, max: 100},
@@ -14,7 +14,6 @@ var UserTwitterSchema = new Schema(
         tweet:
          [{
             title: String,
-            // author : String,
             message: String,
             optionalImageURL: String,
             privateTweetCheckbox: Boolean
@@ -23,4 +22,4 @@ var UserTwitterSchema = new Schema(
 );
 
 //Export model
-module.exports = mongoose.model('tweet', UserTwitterSchema);
+module.exports = mongoose.model('tweet', TwitterUserSchema);

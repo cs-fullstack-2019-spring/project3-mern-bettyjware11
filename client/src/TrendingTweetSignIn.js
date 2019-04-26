@@ -21,6 +21,8 @@ class TrendingTweetSignIn extends Component {
                 body: JSON.stringify({
                     username: e.target.username.value,
                     password: e.target.password.value,
+                    image: e.target.image.value,
+                    backgroundImage: e.target.backgroundImage.value,
 
                 }),
             })

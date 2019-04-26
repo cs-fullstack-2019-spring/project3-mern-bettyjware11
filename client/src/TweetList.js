@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import DetailedTweet from "./DetailedTweet";
+import Tweet from "./Tweet";
+
 
 class TweetList extends Component {
     // constructor to save states (component variables) to be used through this

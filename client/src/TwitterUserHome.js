@@ -8,7 +8,7 @@ import LogOut from "./LogOut";
 import LoggedInData from "./LoggedInData";
 import AddTweet from "./AddTweet";
 
-class UserTwitterHome extends Component {
+class TwitterUserHome extends Component {
     // constructor to save state (component variables) like isLoggedIn, username, and tweet
     constructor(props) {
         super(props);
@@ -59,7 +59,7 @@ class UserTwitterHome extends Component {
     render() {
         return (
             <div>
-                <h1>Welcome to the Twitter Home Page</h1>
+                <h1>Welcome to BTweet Home Page</h1>
                 {/*This allows Route and Link to work*/}
                 <Router>
                     <nav>
@@ -91,7 +91,7 @@ class UserTwitterHome extends Component {
 
                 </Router>
                 {/*<div>*/}
-                    {/*<TweetList changeEdit={this.changeEdit}/>*/}
+                {/*<TweetList changeEdit={this.changeEdit}/>*/}
 
 
 
@@ -103,4 +103,4 @@ class UserTwitterHome extends Component {
     }
 }
 
-export default UserTwitterHome;
+export default TwitterUserHome;

@@ -6,9 +6,10 @@ class AddUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // Notice is available to save the message a server is sending the client
-            notice: "",
+            twitterUserData: '',
+            tweets: [],
         };
+        // this.twitterUserFetch();
     }
 
     // Submission event handler
@@ -31,7 +32,6 @@ class AddUser extends Component {
                 password: e.target.password.value,
                 image: e.target.image.value,
                 backgroundImage: e.target.backgroundImage.value
-
 
 
             }),
@@ -66,10 +66,9 @@ class AddUser extends Component {
                     </p>
                     <p>
                         <label htmlFor={"backgroundImage"}>Upload background image:</label>
-                        <input id={"backgroundImage"} type="text" name='backgroundimage' placeholder="Upload Background Image"/>
+                        <input id={"backgroundImage"} type="text" name='backgroundimage'
+                               placeholder="Upload Background Image"/>
                     </p>
-
-
 
 
                     <button>Sign In</button>

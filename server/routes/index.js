@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var UserTwitterCollection = require("../models/UserTwitterSchema");
+var TwitterUserCollection = require("../models/TwitterUserSchema");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
